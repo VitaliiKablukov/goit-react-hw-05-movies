@@ -1,4 +1,4 @@
-import { Outlet, useParams, NavLink } from 'react-router-dom';
+import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FetchById } from 'components/FetchFunction/FetchById';
 
@@ -6,6 +6,10 @@ export const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState('');
   const { movieId } = useParams();
+  const location = useLocation();
+
+  const backLinkHref = location.state?.from ?? '/';
+
   useEffect(() => {
     if (!movieId) {
       return;
@@ -27,12 +31,15 @@ export const MovieDetails = () => {
 
   return (
     <section>
+      <NavLink to={backLinkHref}>Back</NavLink>
       <div>
         <img
-          src={poster_path}
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w400/${poster_path}`
+              : 'https://via.placeholder.com/400x600?text=No image'
+          }
           alt={title ? title : name}
-          width={200}
-          height={200}
         />
       </div>
       <div>

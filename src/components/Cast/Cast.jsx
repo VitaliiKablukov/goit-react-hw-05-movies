@@ -24,7 +24,14 @@ export const Cast = () => {
         {cast.map(({ profile_path, id, name, character }) => {
           return (
             <li key={id}>
-              <img src={profile_path} alt={name} width={40} height={40} />
+              <img
+                src={
+                  profile_path
+                    ? `https://image.tmdb.org/t/p/w200/${profile_path}`
+                    : 'https://via.placeholder.com/200x300?text=No image'
+                }
+                alt={name}
+              />
               <p>{name}</p>
               <p>Character: {character}</p>
             </li>
