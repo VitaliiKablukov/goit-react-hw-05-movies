@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 export async function FetchHomeMovies(signal) {
   try {
     const response = await axios.get(
@@ -14,3 +15,6 @@ export async function FetchHomeMovies(signal) {
     throw new Error(error);
   }
 }
+FetchHomeMovies.protoTypes = {
+  signal: PropTypes.object.isRequired,
+};

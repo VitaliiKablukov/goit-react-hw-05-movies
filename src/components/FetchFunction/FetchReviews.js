@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 export async function FetchReviews(id) {
   try {
     const response = await axios.get(
@@ -15,3 +16,6 @@ export async function FetchReviews(id) {
     throw new Error(error);
   }
 }
+FetchReviews.protoTypes = {
+  id: PropTypes.number.isRequired,
+};

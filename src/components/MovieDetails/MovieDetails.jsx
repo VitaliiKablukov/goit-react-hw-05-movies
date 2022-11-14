@@ -47,6 +47,14 @@ const MovieDetails = () => {
   const { overview, release_date, poster_path, vote_average, title, name } =
     movie;
 
+  const pareVoteAverage = () => {
+    if (vote_average) {
+      return vote_average.toFixed(1) * 10;
+    } else {
+      return;
+    }
+  };
+
   return (
     <section>
       <NavLink to={backLocation}>Back</NavLink>
@@ -66,7 +74,7 @@ const MovieDetails = () => {
             <h2>
               {title ? title : name}({release_date})
             </h2>
-            <p>User Score: {vote_average}</p>
+            <p>User Score: {pareVoteAverage()}%</p>
             <h3>Overview</h3>
             <p>{overview}</p>
             <h3>Genres</h3>

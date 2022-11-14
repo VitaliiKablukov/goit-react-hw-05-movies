@@ -1,14 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect, lazy } from 'react';
 import { FetchHomeMovies } from './FetchFunction/FetchHomeMovies';
-import { SharedLayout } from './SharedLayout/SharedLayout';
-
-const Home = lazy(() => import('./Home/Home'));
-const Movie = lazy(() => import('./Movie/Movie'));
-const NotFound = lazy(() => import('./NotFound/NotFound'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
+import SharedLayout from './SharedLayout/SharedLayout';
+const Home = lazy(() => import('./Home/Home.jsx'));
+const Movie = lazy(() => import('./Movie/Movie.jsx'));
+const NotFound = lazy(() => import('./NotFound/NotFound.jsx'));
+const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails.jsx'));
+const Cast = lazy(() => import('./Cast/Cast.jsx'));
+const Reviews = lazy(() => import('./Reviews/Reviews.jsx'));
 
 export const App = () => {
   const [homeMovies, setHomeMovies] = useState([]);

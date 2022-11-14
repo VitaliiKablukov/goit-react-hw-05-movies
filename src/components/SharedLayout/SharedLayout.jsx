@@ -12,7 +12,7 @@ const StyledLink = styled(NavLink)`
     color: orange;
   }
 `;
-export const SharedLayout = () => {
+const SharedLayout = () => {
   return (
     <Section>
       <Nav>
@@ -27,3 +27,4 @@ export const SharedLayout = () => {
     </Section>
   );
 };
+export default SharedLayout;

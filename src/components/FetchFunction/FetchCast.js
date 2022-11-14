@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 export async function FetchCast(id) {
   try {
     const response = await axios.get(
@@ -13,3 +14,6 @@ export async function FetchCast(id) {
     throw new Error(error);
   }
 }
+FetchCast.protoTypes = {
+  id: PropTypes.number.isRequired,
+};

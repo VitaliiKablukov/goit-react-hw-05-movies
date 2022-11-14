@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 export async function FetchByName(name, signal) {
   try {
     const response = await axios.get(
@@ -15,3 +16,7 @@ export async function FetchByName(name, signal) {
     throw new Error(error);
   }
 }
+FetchByName.protoTypes = {
+  name: PropTypes.string.isRequired,
+  signal: PropTypes.object.isRequired,
+};
