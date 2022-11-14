@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/216.ec7681db.chunk.js","mappings":"iMAAaA,EAAW,WACtB,OACE,0BACE,wCAGL,C","sources":["components/NotFound/NotFound.jsx"],"sourcesContent":["export const NotFound = () => {\n  return (\n    <div>\n      <p>Ops warning</p>\n    </div>\n  );\n};\n"],"names":["NotFound"],"sourceRoot":""}
