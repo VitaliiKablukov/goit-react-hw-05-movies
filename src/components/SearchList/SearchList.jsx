@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
-export const SearchList = ({ movies }) => {
+import PropTypes from 'prop-types';
+const SearchList = ({ movies }) => {
   const location = useLocation();
   return (
     <ul>
@@ -23,3 +24,7 @@ export const SearchList = ({ movies }) => {
     </ul>
   );
 };
+SearchList.propTypes = {
+  movies: PropTypes.array.isRequired,
+};
+export default SearchList;

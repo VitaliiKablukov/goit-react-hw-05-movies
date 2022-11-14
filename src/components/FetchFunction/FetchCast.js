@@ -7,6 +7,9 @@ export async function FetchCast(id) {
     const movieCast = response.data.cast;
     return movieCast;
   } catch (error) {
-    console.log(error);
+    if (axios.isCancel) {
+      return [];
+    }
+    throw new Error(error);
   }
 }

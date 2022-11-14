@@ -8,6 +8,9 @@ export async function FetchById(id) {
 
     return movie;
   } catch (error) {
-    console.log(error);
+    if (axios.isCancel) {
+      return {};
+    }
+    throw new Error(error);
   }
 }

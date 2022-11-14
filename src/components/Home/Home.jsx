@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
-export const Home = ({ homeMovies }) => {
+import PropTypes from 'prop-types';
+const Home = ({ homeMovies }) => {
   const location = useLocation();
   return (
     <ul>
@@ -23,3 +24,7 @@ export const Home = ({ homeMovies }) => {
     </ul>
   );
 };
+Home.propTypes = {
+  homeMovies: PropTypes.array.isRequired,
+};
+export default Home;

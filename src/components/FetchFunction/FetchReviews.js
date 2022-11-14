@@ -9,6 +9,9 @@ export async function FetchReviews(id) {
 
     return movieReviews;
   } catch (error) {
-    console.log(error);
+    if (axios.isCancel) {
+      return [];
+    }
+    throw new Error(error);
   }
 }

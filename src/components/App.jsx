@@ -1,19 +1,20 @@
 import { Routes, Route } from 'react-router-dom';
-
-import { Home } from './Home/Home';
-import { Movie } from './Movie/Movie';
-import { NotFound } from './NotFound/NotFound';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import { FetchHomeMovies } from './FetchFunction/FetchHomeMovies';
-import { MovieDetails } from './MovieDetails/MovieDetails';
-import { Cast } from './Cast/Cast';
-import { Reviews } from './Reviews/Reviews';
 import { SharedLayout } from './SharedLayout/SharedLayout';
+
+const Home = lazy(() => import('./Home/Home'));
+const Movie = lazy(() => import('./Movie/Movie'));
+const NotFound = lazy(() => import('./NotFound/NotFound'));
+const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 export const App = () => {
   const [homeMovies, setHomeMovies] = useState([]);
   const [falseStartFetch, setFalseStartFetch] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   useEffect(() => {
     if (!falseStartFetch) {
       setFalseStartFetch(() => true);
@@ -23,10 +24,17 @@ export const App = () => {
     const controller = new AbortController();
 
     const fetch = async controller => {
-      const response = await FetchHomeMovies(controller);
+      setLoading(true);
+      try {
+        const response = await FetchHomeMovies(controller.signal);
 
-      if (response.length) {
-        setHomeMovies(movie => [...movie, ...response]);
+        if (response.length) {
+          setHomeMovies(movie => [...movie, ...response]);
+        }
+      } catch (error) {
+        setError('Ops');
+      } finally {
+        setLoading(false);
       }
     };
     fetch(controller);
@@ -34,14 +42,22 @@ export const App = () => {
       controller.abort();
     };
   }, [falseStartFetch]);
-
+  useEffect(() => {
+    if (!error) {
+      return;
+    }
+    alert(error);
+  }, [error]);
   return (
     <div>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
             index
-            element={homeMovies.length && <Home homeMovies={homeMovies} />}
+            element={
+              homeMovies.length > 0 &&
+              !loading && <Home homeMovies={homeMovies} />
+            }
           />
           <Route path="/movie" element={<Movie />} />
           <Route path="/movie/:movieId" element={<MovieDetails />}>
