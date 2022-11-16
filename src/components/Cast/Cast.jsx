@@ -20,24 +20,26 @@ const Cast = () => {
 
   return (
     <section>
-      <ul>
-        {cast.map(({ profile_path, id, name, character }) => {
-          return (
-            <li key={id}>
-              <img
-                src={
-                  profile_path
-                    ? `https://image.tmdb.org/t/p/w200/${profile_path}`
-                    : 'https://via.placeholder.com/200x300?text=No image'
-                }
-                alt={name}
-              />
-              <p>{name}</p>
-              <p>Character: {character}</p>
-            </li>
-          );
-        })}
-      </ul>
+      {cast.length > 0 && (
+        <ul>
+          {cast.map(({ profile_path, id, name, character }) => {
+            return (
+              <li key={id}>
+                <img
+                  src={
+                    profile_path
+                      ? `https://image.tmdb.org/t/p/w200/${profile_path}`
+                      : 'https://via.placeholder.com/200x300?text=No image'
+                  }
+                  alt={name}
+                />
+                <p>{name}</p>
+                <p>Character: {character}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </section>
   );
 };

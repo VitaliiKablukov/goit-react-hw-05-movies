@@ -41,7 +41,7 @@ const Reviews = () => {
   return (
     <section>
       <ul>
-        {!!reviews.length || loading ? (
+        {reviews.length > 0 ? (
           reviews.map(({ id, author, content }) => {
             return (
               <li key={id}>

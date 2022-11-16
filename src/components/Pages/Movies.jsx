@@ -15,7 +15,7 @@ const Movie = () => {
   const queryFilm = searchParams.get('query') ?? '';
 
   const onChange = e => {
-    const queryText = e.target.value.trim();
+    const queryText = e.target.value;
     setQuery(() => queryText);
   };
   const onSubmit = e => {
@@ -24,7 +24,7 @@ const Movie = () => {
       Notiflix.Notify.warning('Please input name movie');
     } else {
       setMovies(() => []);
-      setSearchParams({ query: query });
+      setSearchParams({ query: query.trim() });
       setQuery(() => '');
     }
   };
@@ -71,8 +71,9 @@ const Movie = () => {
         <input type="text" value={query} onChange={onChange} />
         <button type="submit">search</button>
       </form>
-      <Suspense fallback={<div>Loading...</div>}></Suspense>
-      {!loading && <SearchList movies={movies} />}
+      <Suspense fallback={<div>Loading...</div>}>
+        {movies.length > 0 && <SearchList movies={movies} />}
+      </Suspense>
     </>
   );
 };

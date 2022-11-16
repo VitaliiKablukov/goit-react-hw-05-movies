@@ -1,17 +1,15 @@
-import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
-import { useState, useEffect, Suspense } from 'react';
+import { Outlet, useParams, useLocation, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { FetchById } from 'components/FetchFunction/FetchById';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
-  const [genres, setGenres] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [movieLength, setMovieLength] = useState(0);
+
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
-  const backLocation = location.state.from;
 
   useEffect(() => {
     if (!movieId) {
@@ -22,11 +20,6 @@ const MovieDetails = () => {
       try {
         const response = await FetchById(movieId);
         if (response) {
-          const movieGenres = response.genres.map(el => el.name);
-          const movieGenresParse = movieGenres.join(' ');
-          const chekingObjectLength = Object.keys(response).length;
-          setMovieLength(chekingObjectLength);
-          setGenres(() => movieGenresParse);
           setMovie(() => response);
         }
       } catch (error) {
@@ -54,11 +47,14 @@ const MovieDetails = () => {
       return;
     }
   };
-
+  const movieGenres = () => {
+    return movie.genres.map(el => el.name).join(', ') ?? null;
+  };
+  const isEmptyDetails = Object.keys(movie).length === 0;
   return (
     <section>
-      <NavLink to={backLocation}>Back</NavLink>
-      {loading || movieLength ? (
+      <Link to={backLinkHref}>Back</Link>
+      {!isEmptyDetails ? (
         <div>
           <div>
             <img
@@ -78,30 +74,23 @@ const MovieDetails = () => {
             <h3>Overview</h3>
             <p>{overview}</p>
             <h3>Genres</h3>
-            <p>{genres}</p>
+            <p>{movieGenres()}</p>
           </div>
 
           <ul>
             <li>
-              <NavLink
-                to={`/movie/${movieId}/cast`}
-                state={{ from: backLinkHref }}
-              >
+              <Link to={`cast`} state={{ from: backLinkHref }}>
                 <p>Cast</p>
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to={`/movie/${movieId}/reviews`}
-                state={{ from: backLinkHref }}
-              >
+              <Link to={`reviews`} state={{ from: backLinkHref }}>
                 <p>Reviews</p>
-              </NavLink>
+              </Link>
             </li>
           </ul>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
+
+          <Outlet />
         </div>
       ) : (
         <p>We don't have information for this movie</p>

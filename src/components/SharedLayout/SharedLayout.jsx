@@ -19,7 +19,7 @@ const SharedLayout = () => {
         <StyledLink to="/" end>
           Home
         </StyledLink>
-        <StyledLink to="/movie">Movie</StyledLink>
+        <StyledLink to="/movies">Movie</StyledLink>
       </Nav>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
