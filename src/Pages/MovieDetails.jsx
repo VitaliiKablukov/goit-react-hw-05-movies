@@ -1,6 +1,6 @@
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FetchById } from 'components/FetchFunction/FetchById';
+import { FetchById } from 'FetchFunction/FetchById';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});

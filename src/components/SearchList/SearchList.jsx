@@ -8,7 +8,7 @@ const SearchList = ({ movies }) => {
         movies.map(({ title, id, name, poster_path }) => {
           return (
             <li key={id}>
-              <NavLink to={`/movies/${id}`} state={{ from: location }}>
+              <NavLink to={`${id}`} state={{ from: location }}>
                 <img
                   src={
                     poster_path

@@ -1,8 +1,8 @@
-import { FetchByName } from 'components/FetchFunction/FetchByName';
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { FetchByName } from 'FetchFunction/FetchByName';
+import { useState, useEffect } from 'react';
 import Notiflix from 'notiflix';
 import { useSearchParams } from 'react-router-dom';
-const SearchList = lazy(() => import('../SearchList/SearchList'));
+import SearchList from 'components/SearchList/SearchList';
 
 const Movie = () => {
   const [query, setQuery] = useState('');
@@ -13,21 +13,6 @@ const Movie = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryFilm = searchParams.get('query') ?? '';
-
-  const onChange = e => {
-    const queryText = e.target.value;
-    setQuery(() => queryText);
-  };
-  const onSubmit = e => {
-    e.preventDefault();
-    if (query === '') {
-      Notiflix.Notify.warning('Please input name movie');
-    } else {
-      setMovies(() => []);
-      setSearchParams({ query: query.trim() });
-      setQuery(() => '');
-    }
-  };
 
   useEffect(() => {
     if (queryFilm === '' || movies.length !== 0) {
@@ -65,15 +50,29 @@ const Movie = () => {
     alert(error);
   }, [error]);
 
+  const onChange = e => {
+    const queryText = e.target.value;
+    setQuery(() => queryText);
+  };
+  const onSubmit = e => {
+    e.preventDefault();
+    if (query === '') {
+      Notiflix.Notify.warning('Please input name movie');
+    } else {
+      setMovies(() => []);
+      setSearchParams({ query: query.trim() });
+      setQuery(() => '');
+    }
+  };
+
   return (
     <>
       <form onSubmit={onSubmit}>
         <input type="text" value={query} onChange={onChange} />
         <button type="submit">search</button>
       </form>
-      <Suspense fallback={<div>Loading...</div>}>
-        {movies.length > 0 && <SearchList movies={movies} />}
-      </Suspense>
+
+      {movies.length > 0 && <SearchList movies={movies} />}
     </>
   );
 };

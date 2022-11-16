@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FetchReviews } from 'components/FetchFunction/FetchReviews';
+import { FetchReviews } from 'FetchFunction/FetchReviews';
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);

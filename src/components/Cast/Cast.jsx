@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FetchCast } from 'components/FetchFunction/FetchCast';
+import { FetchCast } from 'FetchFunction/FetchCast';
 const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
